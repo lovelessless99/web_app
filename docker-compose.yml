@@ -1,32 +1,39 @@
 version: "3"
 services:
-    mongodb:
-        image: mongo:4.2
-        container_name: mongodb
-        network_mode: host
-        restart: always
-        # command: mongod --dbpath /data/db --port 27017
-        volumes: [./data:/data/db]
-        ports:
-            - "27017:27017"
-        
+    database:
+        image: mongo
+        container_name: mongo
+        restart: unless-stopped
+        command: mongod --dbpath /data/db --port 27017
+        volumes: 
+            - ./data:/data/db
+        networks:
+            - backend_net
+       
     backend:
         image: backend-flask
-        depends_on: [mongodb]
+        depends_on:
+            - database
         build:
             context: ./backend
             dockerfile: Dockerfile
-        restart: always
+        restart: unless-stopped
         container_name: "backend-app"
+        
         links:
-            - 'mongodb:database'
+            - database
         volumes:
             - ./backend:/app # for watching files
         ports:
             - "8081:8081" # if changed, please change port in `frontend/proxy.conf.dev.json
+        networks:                   
+            - frontend_net
+            - backend_net
+
     frontend:
         image: frontend-angular
-        depends_on: [backend]
+        depends_on: 
+            - backend
         build:
             context: ./frontend
             dockerfile: Dockerfile
@@ -36,5 +43,14 @@ services:
             - ./frontend/src:/app/src # for watching files
         ports:
             - "4200:4200"
+        
+        networks:
+            - frontend_net
+
+networks:
+    frontend_net:
+        driver: bridge
+    backend_net:
+        driver: bridge
 
     

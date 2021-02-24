@@ -6,3 +6,8 @@
 1. 刪除 node_module
 2. 如果要使用前先 npm install node_module 全部載回來
 ```
+### To Do
+```
+讓 flask 可以連上 mongodb
+```
+已經解決，在 docker-compose 上 mongodb 的network 要和 flask 一致

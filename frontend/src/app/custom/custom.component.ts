@@ -45,6 +45,7 @@ export class CustomComponent implements OnInit {
 
   sendData(data:any){
     const httpOptions = { headers: new HttpHeaders({'Content-Type': 'application/json'}) };
+    // let api = "frontend_net:8081/form"
     let api = "http://0.0.0.0:8081/form"
     this.http.post(api, data, httpOptions)
              .subscribe((response)=>{ console.log(response); });

@@ -2,17 +2,21 @@ from flask import abort, redirect, Flask, request, jsonify, session
 from flask_cors import CORS
 from pymongo import MongoClient
 import pandas as pd
+
 import json
 
 app = Flask(__name__)
 CORS(app)
 app.secret_key = "Fkking"
 
+import os 
+
 # declare constants
 HOST = '0.0.0.0'
 PORT = 8081 
 
-client = MongoClient('mongodb://mongodb:27017/')
+
+client = MongoClient('mongodb://database:27017')
 db = client.test_db # SQL: Database Name
 collection = db['user_data'] # SQL: Table Name
 
