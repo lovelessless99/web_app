@@ -1,0 +1,24 @@
+<p>home works!</p>
+<!-- <ul>
+        <li *ngFor="let item of imgurls; let key = index;">
+                <img *ngIf="key==1" [src]="item" height="50px" width="100px">        
+        </li>
+<ul> -->
+
+<ul>
+        <li *ngFor="let item of item_list; let key = index;" [ngClass]="{ 'red': key==0, 'blue': key==1, 'green': key==2}">
+                {{key}} ---> {{item}}
+        </li>
+</ul>
+
+<div>
+        {{ today | date:'yyyy-MM-dd HH:mm'  }}
+</div>
+
+<button (click)="run()">執行事件 </button>
+
+<input type="text" (keydown)="keyDown($event)">
+
+<input type="text" [(ngModel)]="keywords">
+{{keywords}}
+

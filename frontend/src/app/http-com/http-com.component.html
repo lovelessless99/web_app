@@ -1,0 +1,12 @@
+<p>http-com works!</p>
+<button (click)="getData()">get請求數據</button>
+<hr>
+<br>
+
+<ul>
+        <li *ngFor="let item of list">
+                {{item.name}}, {{item.Sex}}, {{item.ID}}
+        </li>
+</ul>
+
+<button (click)="sendData()">POST傳送數據</button>
